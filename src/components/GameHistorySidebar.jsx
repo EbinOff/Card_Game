@@ -18,7 +18,7 @@ export default function GameHistorySidebar({ history, mobileVisible, onClose }) 
         <div className="mobile-drawer">
           <div className="mobile-drawer-header">
             <h2 className="history-title" style={{margin:0}}>Game History</h2>
-            <button className="drawer-close-btn" onClick={onClose}>✕</button>
+            <button className="drawer-close-btn" onClick={onClose}>x</button>
           </div>
           <WinTally playerWins={playerWins} botWins={botWins} />
           <GameList history={history} />
@@ -62,3 +62,4 @@ function GameList({ history }) {
     </div>
   );
 }
+

@@ -14,7 +14,7 @@ export default function HistorySidebar({ history, mobileVisible, onClose }) {
         <div className="mobile-drawer">
           <div className="mobile-drawer-header">
             <h2 className="history-title" style={{margin:0}}>Match History</h2>
-            <button className="drawer-close-btn" onClick={onClose}>✕</button>
+            <button className="drawer-close-btn" onClick={onClose}>x</button>
           </div>
           <MatchList history={history} />
         </div>
@@ -45,3 +45,4 @@ function MatchList({ history }) {
     </div>
   );
 }
+

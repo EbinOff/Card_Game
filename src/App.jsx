@@ -187,13 +187,13 @@ function App() {
             className={`mobile-tab ${mobileDrawer === 'game' ? 'active' : ''}`}
             onClick={() => setMobileDrawer(d => d === 'game' ? null : 'game')}
           >
-            🏆 Games
+            Games
           </button>
           <button
             className={`mobile-tab ${mobileDrawer === 'match' ? 'active' : ''}`}
             onClick={() => setMobileDrawer(d => d === 'match' ? null : 'match')}
           >
-            📋 Moves
+            Moves
           </button>
         </div>
       </div>
@@ -237,3 +237,4 @@ function App() {
 }
 
 export default App;
+
