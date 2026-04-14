@@ -224,7 +224,7 @@ function App() {
                 <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>{playerScore}</p>
               </div>
               <div style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: '1rem', color: '#ff2d55' }}>Bot Score</p>
+                <p style={{ fontSize: '1rem', color: '#a855f7' }}>Bot Score</p>
                 <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>{botScore}</p>
               </div>
             </div>

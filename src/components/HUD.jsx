@@ -13,7 +13,7 @@ export default function HUD({
     <div className="hud">
       <div className="hud-section">
         <span className="hud-label">Turn</span>
-        <span className="hud-turn" style={{ color: turn === 'player' ? '#10b981' : '#ef4444' }}>
+        <span className="hud-turn" style={{ color: turn === 'player' ? '#10b981' : '#a855f7' }}>
           {turn}
         </span>
       </div>
@@ -25,7 +25,7 @@ export default function HUD({
 
       <div className="hud-section">
         <span className="hud-label">Bot</span>
-        <span className="hud-value" style={{ color: '#ef4444' }}>{botScore}</span>
+        <span className="hud-value" style={{ color: '#a855f7' }}>{botScore}</span>
       </div>
 
       <div className="hud-section">

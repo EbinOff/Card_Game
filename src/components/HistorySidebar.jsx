@@ -34,7 +34,7 @@ function MatchList({ history }) {
           </div>
           <div className="history-cards">
             {entry.cards.map(c => (
-              <div key={c.id} className="mini-card" style={{ color: c.color }}>
+              <div key={c.id} className="mini-card" style={{ '--mini-accent': c.color }}>
                 <div className={`mini-shape ${c.shape}`}></div>
                 <div className="mini-number">{c.number}</div>
               </div>

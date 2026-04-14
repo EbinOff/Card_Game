@@ -144,10 +144,17 @@
 }
 
 .card:not(.exposed) {
-  filter: brightness(0.35) saturate(0.4);
+  filter: brightness(0.28) saturate(calc(var(--card-depth-shadow, 0.72) - 0.42));
+  opacity: var(--card-depth-shadow, 0.72);
   cursor: not-allowed;
   box-shadow: none;
-  /* stronger dim so exposed (top) cards pop */
+}
+
+/* Cards just one layer below top are slightly more visible */
+.card.near-exposed:not(.exposed) {
+  filter: brightness(0.62) saturate(0.8);
+  opacity: 0.95;
+  box-shadow: 1px 4px 12px rgba(0,0,0,0.22);
 }
 
 .card.exposed:hover:not(.selected) {
@@ -183,8 +190,8 @@
 }
 
 .card.bot-highlight {
-  border-color: #ff2d55;
-  box-shadow: 0 0 20px rgba(255, 45, 85, 0.6);
+  border-color: #a855f7;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
   transform: scale(1.1);
   z-index: 20;
 }
@@ -470,7 +477,7 @@
 }
 
 .history-entry.bot {
-  border-color: rgba(255, 45, 85, 0.3);
+  border-color: rgba(255, 0, 127, 0.3);
 }
 
 .history-meta {
@@ -486,7 +493,7 @@
 }
 
 .history-entry.player .history-by { color: #10b981; }
-.history-entry.bot .history-by { color: #ff2d55; }
+.history-entry.bot .history-by { color: #a855f7; }
 
 .history-score {
   color: #f59e0b;
@@ -515,11 +522,12 @@
   width: 14px;
   height: 14px;
   margin-bottom: 2px;
+  color: var(--mini-accent);
 }
 
-.mini-shape.circle { border-radius: 50%; background-color: rgba(255, 255, 255, 0.05); margin-top:2px; }
-.mini-shape.square { background-color: rgba(255, 255, 255, 0.05); margin-top:2px;}
-.mini-shape.diamond { transform: rotate(45deg); background-color: rgba(255, 255, 255, 0.05); margin-top:2px; }
+.mini-shape.circle { border-radius: 50%; background-color: currentColor; margin-top:2px; }
+.mini-shape.square { background-color: currentColor; margin-top:2px;}
+.mini-shape.diamond { transform: rotate(45deg); background-color: currentColor; margin-top:2px; }
 .mini-shape.triangle {
   width: 0; height: 0;
   border-left: 7px solid transparent;
@@ -545,6 +553,7 @@
 .mini-number {
   font-size: 0.7rem;
   font-weight: bold;
+  color: var(--text-main);
 }
 
 /* ── Visibility helpers ───────────────────────────────── */
@@ -635,8 +644,14 @@
   }
 
   .card:not(.exposed) {
-    /* Identical to PC version now */
-    filter: brightness(0.35) saturate(0.4);
+    filter: brightness(0.35) saturate(calc(var(--card-depth-shadow, 0.72) - 0.35));
+    opacity: var(--card-depth-shadow, 0.78);
+  }
+
+  .card.near-exposed:not(.exposed) {
+    filter: brightness(0.68) saturate(0.88);
+    opacity: 0.96;
+    box-shadow: 1px 3px 10px rgba(0,0,0,0.22);
   }
 
 
@@ -748,6 +763,32 @@
 
   .game-over-modal h1 {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .hud-section {
+    min-width: 44px;
+  }
+
+  .hud-value,
+  .hud-turn {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .mobile-drawer {
+    max-height: 60vh;
+    padding: 16px;
   }
 }
 

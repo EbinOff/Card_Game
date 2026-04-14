@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function GameHistorySidebar({ history, mobileVisible, onClose }) {
   const playerWins = history.filter(g => g.winner === 'player').length;
@@ -36,7 +36,7 @@ function WinTally({ playerWins, botWins }) {
         <div style={{fontSize:'1.5rem',fontWeight:'800'}}>{playerWins}</div>
       </div>
       <div style={{textAlign:'center'}}>
-        <div style={{fontSize:'0.8rem',color:'#ef4444',fontWeight:'bold'}}>BOT</div>
+        <div style={{fontSize:'0.8rem',color:'#a855f7',fontWeight:'bold'}}>BOT</div>
         <div style={{fontSize:'1.5rem',fontWeight:'800'}}>{botWins}</div>
       </div>
     </div>
@@ -52,7 +52,7 @@ function GameList({ history }) {
           <div style={{fontWeight:'bold',marginBottom:'8px',color:'var(--text-main)'}}>Game {history.length - i}</div>
           <div style={{display:'flex',justifyContent:'space-between',fontSize:'0.9rem',marginBottom:'8px'}}>
             <span style={{color:'#10b981'}}>You: {game.playerScore}</span>
-            <span style={{color:'#ef4444'}}>Bot: {game.botScore}</span>
+            <span style={{color:'#a855f7'}}>Bot: {game.botScore}</span>
           </div>
           <div style={{textAlign:'center',fontSize:'0.8rem',fontWeight:'800',background:'rgba(0,0,0,0.2)',padding:'4px',borderRadius:'4px'}}>
             WINNER: <span className="history-by">{game.winner.toUpperCase()}</span>

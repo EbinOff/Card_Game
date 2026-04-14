@@ -58,3 +58,10 @@ button {
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  :root {
+    --card-width: 68px;
+    --card-height: 96px;
+  }
+}

@@ -1,4 +1,4 @@
-export const COLORS = ['#ff2d55', '#3b82f6', '#10b981', '#f59e0b']; // Rose-Red, Blue, Green, Yellow
+export const COLORS = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00']; // Magenta, Cyan, Lime, Yellow
 export const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
 export const NUMBERS = [1, 2, 3, 4];
 
@@ -49,6 +49,23 @@ export function isExposed(card, allCards) {
   });
 
   return !isCovered;
+}
+
+export function isNearExposed(card, allCards) {
+  if (card.isRemoved || isExposed(card, allCards)) return false;
+
+  const coveringCards = allCards.filter(t => {
+    if (t.isRemoved || t.z <= card.z) return false;
+    const xOverlap = Math.abs(t.x - card.x) < 0.9;
+    const yOverlap = Math.abs(t.y - card.y) < 0.9;
+    return xOverlap && yOverlap;
+  });
+
+  if (coveringCards.length === 0) return false;
+
+  // Cards that are one removal away from being playable should stay
+  // more legible than deeper buried layers.
+  return coveringCards.every(coveringCard => isExposed(coveringCard, allCards));
 }
 
 export function getSharedAttributesCount(selectedCards) {

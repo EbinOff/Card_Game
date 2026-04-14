@@ -1,10 +1,19 @@
 import React from 'react';
 
-export default function Card({ card, isExposed, isSelected, isBotHighlight, isScattering, onClick }) {
+export default function Card({
+  card,
+  isExposed,
+  isNearExposed,
+  isSelected,
+  isBotHighlight,
+  isScattering,
+  onClick
+}) {
   if (card.isRemoved && !isScattering) return null;
 
   let className = 'card';
   if (isExposed) className += ' exposed';
+  if (isNearExposed) className += ' near-exposed';
   if (isSelected) className += ' selected';
   if (isBotHighlight) className += ' bot-highlight';
   if (isScattering) className += ' scattering';
@@ -19,6 +28,7 @@ export default function Card({ card, isExposed, isSelected, isBotHighlight, isSc
     transform: `translateZ(${card.z * 10}px)`,
     zIndex: card.z * 5,
     color: card.color,
+    '--card-depth-shadow': isNearExposed ? '0.95' : '0.72',
     '--scatter-rot': `${rot}deg`,
   };
 

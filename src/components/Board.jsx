@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './Card';
-import { isExposed } from '../utils/gameLogic';
+import { isExposed, isNearExposed } from '../utils/gameLogic';
 
 export default function Board({ cards, selectedCards, botHighlightIds, scatteringIds, onCardClick }) {
   const isSelected = (id) => selectedCards.some(c => c.id === id);
@@ -15,6 +15,7 @@ export default function Board({ cards, selectedCards, botHighlightIds, scatterin
             key={card.id}
             card={card}
             isExposed={isExposed(card, cards)}
+            isNearExposed={isNearExposed(card, cards)}
             isSelected={isSelected(card.id)}
             isBotHighlight={isHighlighted(card.id)}
             isScattering={isScattering(card.id)}
