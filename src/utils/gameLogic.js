@@ -1,4 +1,4 @@
-export const COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b']; // Red, Blue, Green, Yellow
+export const COLORS = ['#ff2d55', '#3b82f6', '#10b981', '#f59e0b']; // Rose-Red, Blue, Green, Yellow
 export const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
 export const NUMBERS = [1, 2, 3, 4];
 

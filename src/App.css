@@ -183,8 +183,8 @@
 }
 
 .card.bot-highlight {
-  border-color: #ef4444;
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+  border-color: #ff2d55;
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.6);
   transform: scale(1.1);
   z-index: 20;
 }
@@ -470,7 +470,7 @@
 }
 
 .history-entry.bot {
-  border-color: rgba(239, 68, 68, 0.3);
+  border-color: rgba(255, 45, 85, 0.3);
 }
 
 .history-meta {
@@ -486,7 +486,7 @@
 }
 
 .history-entry.player .history-by { color: #10b981; }
-.history-entry.bot .history-by { color: #ef4444; }
+.history-entry.bot .history-by { color: #ff2d55; }
 
 .history-score {
   color: #f59e0b;
