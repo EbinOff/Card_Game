@@ -50,9 +50,7 @@
 .hud-value {
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(to right, #e2e8f0, #94a3b8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #e2e8f0;
 }
 
 .hud-turn {
@@ -146,9 +144,10 @@
 }
 
 .card:not(.exposed) {
-  filter: brightness(0.5);
+  filter: brightness(0.35) saturate(0.4);
   cursor: not-allowed;
   box-shadow: none;
+  /* stronger dim so exposed (top) cards pop */
 }
 
 .card.exposed:hover:not(.selected) {
@@ -160,15 +159,14 @@
 }
 
 .card.selected {
-  border-color: #3b82f6;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), inset 0 0 10px rgba(59, 130, 246, 0.3);
+  border: 2px solid #3b82f6 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transform: translateY(-8px) scale(1.08);
   z-index: 15;
 }
 
 .card.selected:hover {
-  /* Keep selected appearance stable on hover, don't revert to amber */
-  border-color: #60a5fa;
+  border-color: #60a5fa !important;
 }
 
 /* Scatter animation on claim */
@@ -235,11 +233,11 @@
 /* Shapes */
 .card-shape.circle {
   border-radius: 50%;
-  border: 2px solid currentColor;
+  background-color: rgba(255, 255, 255, 0.05); /* very subtle fill to define shape if not solid */
 }
 
 .card-shape.square {
-  border: 2px solid currentColor;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .card-shape.triangle {
@@ -272,7 +270,7 @@
 
 .card-shape.diamond {
   transform: rotate(45deg);
-  border: 2px solid currentColor;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Info Button */
@@ -519,9 +517,9 @@
   margin-bottom: 2px;
 }
 
-.mini-shape.circle { border-radius: 50%; border: 2px solid currentColor; margin-top:2px; }
-.mini-shape.square { border: 2px solid currentColor; margin-top:2px;}
-.mini-shape.diamond { transform: rotate(45deg); border: 2px solid currentColor; margin-top:2px; }
+.mini-shape.circle { border-radius: 50%; background-color: rgba(255, 255, 255, 0.05); margin-top:2px; }
+.mini-shape.square { background-color: rgba(255, 255, 255, 0.05); margin-top:2px;}
+.mini-shape.diamond { transform: rotate(45deg); background-color: rgba(255, 255, 255, 0.05); margin-top:2px; }
 .mini-shape.triangle {
   width: 0; height: 0;
   border-left: 7px solid transparent;
@@ -565,20 +563,18 @@
 
   /* HUD: compact 2-row layout */
   .hud {
-    position: relative;
-    top: unset;
-    left: unset;
-    transform: none;
-    width: 100%;
+    position: absolute; /* Take out of flow to allow board to center in screen */
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
     max-width: 100%;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    padding: 10px 12px;
+    border-radius: 16px;
+    padding: 10px 15px;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: space-between;
+    z-index: 150;
   }
 
   .hud-section {
@@ -594,17 +590,34 @@
     font-size: 0.85rem;
   }
 
-  /* Info button flush with HUD on mobile */
+  /* Info button overlays HUD area on mobile */
   .info-btn-wrapper {
-    position: static;
-    align-self: center;
+    position: absolute;
+    top: 85px; /* Below HUD */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 150;
   }
 
-  /* Board: scrollable, center-aligned, no top padding HUD compensation */
+  /* On mobile, anchor panel to viewport so it never clips off-screen */
+  .info-panel {
+    position: fixed;
+    top: auto;
+    bottom: 70px; /* above tab bar */
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 200;
+  }
+
+  /* Board: Truly centered in the viewport now that top elements are absolute */
   .board-container {
-    padding-top: 20px;
-    padding-bottom: 70px; /* room for tab bar */
-    overflow: auto;
+    height: 100vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -613,23 +626,37 @@
     height: calc(var(--card-height) * 4);
   }
 
-  /* Card shapes scaled for smaller cards */
-  .card-shape { width: 28px; height: 28px; }
-  .card-shape.triangle {
-    border-left-width: 14px;
-    border-right-width: 14px;
-    border-bottom-width: 24px;
+  .card {
+    border: none;
+    /* Remove the mobile-specific overrides to match PC aesthetics */
+    backdrop-filter: blur(1px); 
+    -webkit-backdrop-filter: blur(1px);
+    background: var(--glass-bg);
   }
-  .card-shape.hexagon { width: 28px; height: 16px; }
+
+  .card:not(.exposed) {
+    /* Identical to PC version now */
+    filter: brightness(0.35) saturate(0.4);
+  }
+
+
+  /* Card shapes scaled for smaller cards */
+  .card-shape { width: 34px; height: 34px; }
+  .card-shape.triangle {
+    border-left-width: 17px;
+    border-right-width: 17px;
+    border-bottom-width: 30px;
+  }
+  .card-shape.hexagon { width: 34px; height: 18px; }
   .card-shape.hexagon::before,
   .card-shape.hexagon::after {
-    border-left-width: 14px;
-    border-right-width: 14px;
+    border-left-width: 17px;
+    border-right-width: 17px;
   }
-  .card-shape.hexagon::before { top: -8px; border-bottom-width: 8px; }
-  .card-shape.hexagon::after  { bottom: -8px; border-top-width: 8px; }
+  .card-shape.hexagon::before { top: -9px; border-bottom-width: 9px; }
+  .card-shape.hexagon::after  { bottom: -9px; border-top-width: 9px; }
 
-  .card-number { font-size: 1.2rem; }
+  .card-number { font-size: 1.4rem; }
 
   /* Bottom Tab Bar */
   .mobile-tab-bar {
