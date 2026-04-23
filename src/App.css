@@ -166,14 +166,15 @@
 }
 
 .card.selected {
-  border: 2px solid #3b82f6 !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  transform: translateY(-8px) scale(1.08);
+  border: 3px solid #3b82f6 !important;
+  box-shadow: 0 0 25px 8px rgba(59, 130, 246, 0.8);
+  transform: translateY(-10px) scale(1.12);
   z-index: 15;
+  filter: brightness(1.2);
 }
 
 .card.selected:hover {
-  border-color: #60a5fa !important;
+  border-color: #93c5fd !important;
 }
 
 /* Scatter animation on claim */
@@ -201,6 +202,7 @@
   width: 40px;
   height: 40px;
   margin-bottom: 8px;
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.9));
 }
 
 .card-number {
@@ -208,6 +210,7 @@
   font-weight: 800;
   text-align: center;
   line-height: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), -1px -1px 3px rgba(0, 0, 0, 0.9);
 }
 
 /* Patterns */
@@ -611,8 +614,8 @@
   /* On mobile, anchor panel to viewport so it never clips off-screen */
   .info-panel {
     position: fixed;
-    top: auto;
-    bottom: 70px; /* above tab bar */
+    top: 135px; /* Below the header/tab */
+    bottom: auto;
     right: 12px;
     left: 12px;
     width: auto;
@@ -637,22 +640,10 @@
 
   .card {
     border: none;
-    /* Remove the mobile-specific overrides to match PC aesthetics */
-    backdrop-filter: blur(1px); 
-    -webkit-backdrop-filter: blur(1px);
     background: var(--glass-bg);
   }
 
-  .card:not(.exposed) {
-    filter: brightness(0.35) saturate(calc(var(--card-depth-shadow, 0.72) - 0.35));
-    opacity: var(--card-depth-shadow, 0.78);
-  }
-
-  .card.near-exposed:not(.exposed) {
-    filter: brightness(0.68) saturate(0.88);
-    opacity: 0.96;
-    box-shadow: 1px 3px 10px rgba(0,0,0,0.22);
-  }
+  /* Keeping exact same filters as desktop for consistency */
 
 
   /* Card shapes scaled for smaller cards */
