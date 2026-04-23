@@ -614,7 +614,7 @@
   /* On mobile, anchor panel to viewport so it never clips off-screen */
   .info-panel {
     position: fixed;
-    top: 135px; /* Below the header/tab */
+    top: 115px; /* Moved up slightly */
     bottom: auto;
     right: 12px;
     left: 12px;
@@ -639,7 +639,7 @@
   }
 
   .card {
-    border: none;
+    border: 1px solid var(--card-border); /* Match desktop border */
     background: var(--glass-bg);
   }
 
