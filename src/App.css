@@ -722,11 +722,25 @@
     right: 4px;
     left: 4px;
     width: auto;
-    padding: 12px 10px;
+    padding: 10px 8px; /* Further reduction */
     max-height: 60vh;
     overflow-y: auto;
     z-index: 200;
     border-radius: 20px;
+  }
+
+  .info-row {
+    font-size: 0.72rem; /* Significantly smaller to prevent wrapping */
+    padding: 3px 0;
+  }
+
+  .info-section-header {
+    font-size: 0.65rem;
+  }
+
+  .info-panel-title {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
   }
 
   /* Board: Truly centered in the viewport now that top elements are absolute */
