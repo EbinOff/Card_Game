@@ -1,5 +1,5 @@
 
-export const COLORS = ['#ff00ff', '#f91616de', '#22c55e', '#ffff00'];
+export const COLORS = ['#3B82F6', '#d946ef', '#22c55e', '#ffff00'];
 export const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
 export const NUMBERS = [1, 2, 3, 4];
 
