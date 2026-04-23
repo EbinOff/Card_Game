@@ -722,10 +722,11 @@
     right: 0px;
     left: 0px;
     width: auto;
-    padding: 16px;
+    padding: 10px 8px; /* Maximize internal width */
     max-height: 60vh;
     overflow-y: auto;
     z-index: 200;
+    border-radius: 0; /* Square edges for edge-to-edge feel */
   }
 
   /* Board: Truly centered in the viewport now that top elements are absolute */
