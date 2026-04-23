@@ -719,8 +719,8 @@
     top: 44px;
     /* Moved up slightly */
     bottom: auto;
-    right: 8px;
-    left: 8px;
+    right: 0px;
+    left: 0px;
     width: auto;
     padding: 16px;
     max-height: 60vh;
