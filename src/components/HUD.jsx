@@ -33,26 +33,34 @@ export default function HUD({
       <div 
         className="hud-section" 
         onClick={onToggleBotCap}
-        style={{ cursor: 'pointer', transition: 'opacity 0.2s' }}
+        style={{ cursor: 'pointer', transition: 'opacity 0.2s', position: 'relative' }}
         title="Tap to toggle bot cap ON/OFF"
       >
-        <span className="hud-label" style={{ display: 'flex', alignItems: 'center' }}>
+        <span className="hud-label" style={{ position: 'relative' }}>
           <span 
-            title="Bot Match Cap: Limits maximum cards the bot can match at once." 
+            onClick={(e) => {
+              e.stopPropagation();
+              alert("Bot Match Cap: Limits maximum cards the bot can match at once, which is determined by player's previous move.");
+            }}
+            title="Bot Match Cap: Limits maximum cards the bot can match at once, which is determined by player's previous move." 
             style={{
-              marginRight: '6px', 
-              cursor: 'help', 
+              position: 'absolute',
+              left: '-20px',
+              top: '50%',
+              transform: 'translateY(-50%)',
               border: '1px solid currentColor', 
               borderRadius: '50%', 
               display: 'inline-flex', 
               justifyContent: 'center',
               alignItems: 'center',
-              width: '14px', 
-              height: '14px', 
-              fontSize: '9px',
+              width: '16px', 
+              height: '16px', 
+              fontSize: '10px',
               fontFamily: 'sans-serif',
               fontWeight: 'bold',
-              opacity: 0.8
+              opacity: 0.8,
+              cursor: 'help',
+              padding: '2px' /* Extra hit area for mobile */
             }}
           >
             i
