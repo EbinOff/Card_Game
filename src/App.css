@@ -98,6 +98,7 @@
   background: linear-gradient(135deg, #8b5cf6, #6d28d9);
   border: none;
 }
+
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, #a78bfa, #7c3aed);
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
@@ -110,7 +111,7 @@
   justify-content: center;
   align-items: center;
   perspective: 1000px;
-  padding-top: 150px; 
+  padding-top: 150px;
   padding-bottom: 80px;
 }
 
@@ -139,7 +140,7 @@
   justify-content: center;
   align-items: center;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 2px 5px 15px rgba(0,0,0,0.4);
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.4);
   user-select: none;
 }
 
@@ -154,12 +155,12 @@
 .card.near-exposed:not(.exposed) {
   filter: brightness(0.62) saturate(0.8);
   opacity: 0.95;
-  box-shadow: 1px 4px 12px rgba(0,0,0,0.22);
+  box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.22);
 }
 
 .card.exposed:hover:not(.selected) {
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.1);
   z-index: 10;
   border-color: #f59e0b;
   /* Amber = hovering but not yet selected */
@@ -185,9 +186,20 @@
 }
 
 @keyframes scatterCard {
-  0%   { opacity: 1; transform: translateY(-8px) scale(1.08); }
-  60%  { opacity: 0.6; transform: translateY(-60px) scale(0.7) rotate(var(--scatter-rot, 15deg)); }
-  100% { opacity: 0; transform: translateY(-100px) scale(0.3) rotate(var(--scatter-rot, 30deg)); }
+  0% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.08);
+  }
+
+  60% {
+    opacity: 0.6;
+    transform: translateY(-60px) scale(0.7) rotate(var(--scatter-rot, 15deg));
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.3) rotate(var(--scatter-rot, 30deg));
+  }
 }
 
 .card.bot-highlight {
@@ -219,13 +231,11 @@
 }
 
 .card-content.striped .card-shape {
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 5px,
-    currentColor 5px,
-    currentColor 10px
-  );
+  background: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 5px,
+      currentColor 5px,
+      currentColor 10px);
 }
 
 .card-content.dotted .card-shape {
@@ -234,7 +244,7 @@
 }
 
 .card-content.grid .card-shape {
-  background-image: 
+  background-image:
     linear-gradient(currentColor 2px, transparent 2px),
     linear-gradient(90deg, currentColor 2px, transparent 2px);
   background-size: 10px 10px;
@@ -243,7 +253,8 @@
 /* Shapes */
 .card-shape.circle {
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.05); /* very subtle fill to define shape if not solid */
+  background-color: rgba(255, 255, 255, 0.05);
+  /* very subtle fill to define shape if not solid */
 }
 
 .card-shape.square {
@@ -260,17 +271,32 @@
 }
 
 .card-shape.hexagon {
-  width: 40px; height: 23px;
+  width: 40px;
+  height: 23px;
   background: currentColor;
   position: relative;
   margin: 11px 0;
 }
-.card-shape.hexagon::before, .card-shape.hexagon::after {
-  content: ""; position: absolute; width: 0; left: 0;
-  border-left: 20px solid transparent; border-right: 20px solid transparent;
+
+.card-shape.hexagon::before,
+.card-shape.hexagon::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  left: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
 }
-.card-shape.hexagon::before { top: -11px; border-bottom: 11px solid currentColor; }
-.card-shape.hexagon::after { bottom: -11px; border-top: 11px solid currentColor; }
+
+.card-shape.hexagon::before {
+  top: -11px;
+  border-bottom: 11px solid currentColor;
+}
+
+.card-shape.hexagon::after {
+  bottom: -11px;
+  border-top: 11px solid currentColor;
+}
 
 .card-content.solid .card-shape.triangle {
   border-bottom-color: currentColor;
@@ -305,12 +331,12 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .info-btn:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: scale(1.1);
 }
 
@@ -330,7 +356,7 @@
   border-radius: 16px;
   padding: 20px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.2s ease-out;
   z-index: 109;
 }
@@ -366,7 +392,7 @@
   align-items: center;
   padding: 4px 0;
   font-size: 0.88rem;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .info-row-label {
@@ -381,8 +407,11 @@
 /* Game Over Overlay */
 .game-over-overlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
@@ -408,12 +437,20 @@
 }
 
 @keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Sidebars styling shared base logic */
-.history-sidebar, .game-history-sidebar {
+.history-sidebar,
+.game-history-sidebar {
   width: 250px;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -427,18 +464,19 @@
 
 .history-sidebar {
   border-left: 1px solid var(--glass-border);
-  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .game-history-sidebar {
   border-right: 1px solid var(--glass-border);
-  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .history-sidebar::-webkit-scrollbar,
 .game-history-sidebar::-webkit-scrollbar {
   width: 6px;
 }
+
 .history-sidebar::-webkit-scrollbar-thumb {
   background-color: var(--card-border);
   border-radius: 10px;
@@ -471,8 +509,15 @@
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .history-entry.player {
@@ -495,8 +540,13 @@
   color: var(--text-main);
 }
 
-.history-entry.player .history-by { color: #10b981; }
-.history-entry.bot .history-by { color: #a855f7; }
+.history-entry.player .history-by {
+  color: #10b981;
+}
+
+.history-entry.bot .history-by {
+  color: #a855f7;
+}
 
 .history-score {
   color: #f59e0b;
@@ -518,7 +568,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .mini-shape {
@@ -528,30 +578,61 @@
   color: var(--mini-accent);
 }
 
-.mini-shape.circle { border-radius: 50%; background-color: currentColor; margin-top:2px; }
-.mini-shape.square { background-color: currentColor; margin-top:2px;}
-.mini-shape.diamond { transform: rotate(45deg); background-color: currentColor; margin-top:2px; }
+.mini-shape.circle {
+  border-radius: 50%;
+  background-color: currentColor;
+  margin-top: 2px;
+}
+
+.mini-shape.square {
+  background-color: currentColor;
+  margin-top: 2px;
+}
+
+.mini-shape.diamond {
+  transform: rotate(45deg);
+  background-color: currentColor;
+  margin-top: 2px;
+}
+
 .mini-shape.triangle {
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 12px solid currentColor;
   background: none !important;
-  margin-top:2px;
+  margin-top: 2px;
 }
+
 .mini-shape.hexagon {
-  width: 14px; height: 8px;
+  width: 14px;
+  height: 8px;
   background: currentColor;
   position: relative;
   margin-top: 5px;
   margin-bottom: 3px;
 }
-.mini-shape.hexagon::before, .mini-shape.hexagon::after {
-  content: ""; position: absolute; width: 0; left: 0;
-  border-left: 7px solid transparent; border-right: 7px solid transparent;
+
+.mini-shape.hexagon::before,
+.mini-shape.hexagon::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  left: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
 }
-.mini-shape.hexagon::before { top: -4px; border-bottom: 4px solid currentColor; }
-.mini-shape.hexagon::after { bottom: -4px; border-top: 4px solid currentColor; }
+
+.mini-shape.hexagon::before {
+  top: -4px;
+  border-bottom: 4px solid currentColor;
+}
+
+.mini-shape.hexagon::after {
+  bottom: -4px;
+  border-top: 4px solid currentColor;
+}
 
 .mini-number {
   font-size: 0.7rem;
@@ -560,13 +641,23 @@
 }
 
 /* ── Visibility helpers ───────────────────────────────── */
-.desktop-only { display: flex; }
-.mobile-only  { display: none; }
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
 
 /* ── Mobile Layout ────────────────────────────────────── */
 @media (max-width: 768px) {
-  .desktop-only { display: none !important; }
-  .mobile-only  { display: flex !important; }
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
 
   /* Stack app vertically, no sidebars */
   .app-container {
@@ -575,7 +666,8 @@
 
   /* HUD: compact 2-row layout */
   .hud {
-    position: absolute; /* Take out of flow to allow board to center in screen */
+    position: absolute;
+    /* Take out of flow to allow board to center in screen */
     top: 15px;
     left: 50%;
     transform: translateX(-50%);
@@ -593,9 +685,17 @@
     min-width: 50px;
   }
 
-  .hud-label { font-size: 0.65rem; }
-  .hud-value { font-size: 1.1rem; }
-  .hud-turn  { font-size: 1.2rem; }
+  .hud-label {
+    font-size: 0.65rem;
+  }
+
+  .hud-value {
+    font-size: 1.1rem;
+  }
+
+  .hud-turn {
+    font-size: 1.2rem;
+  }
 
   .btn {
     padding: 8px 14px;
@@ -605,7 +705,8 @@
   /* Info button overlays HUD area on mobile */
   .info-btn-wrapper {
     position: absolute;
-    top: 85px; /* Below HUD */
+    top: 85px;
+    /* Below HUD */
     left: 50%;
     transform: translateX(-50%);
     z-index: 150;
@@ -614,7 +715,8 @@
   /* On mobile, anchor panel to viewport so it never clips off-screen */
   .info-panel {
     position: fixed;
-    top: 115px; /* Moved up slightly */
+    top: 80px;
+    /* Moved up slightly */
     bottom: auto;
     right: 12px;
     left: 12px;
@@ -639,7 +741,8 @@
   }
 
   .card {
-    border: 1px solid var(--card-border); /* Match desktop border */
+    border: 1px solid var(--card-border);
+    /* Match desktop border */
     background: var(--glass-bg);
   }
 
@@ -647,22 +750,41 @@
 
 
   /* Card shapes scaled for smaller cards */
-  .card-shape { width: 34px; height: 34px; }
+  .card-shape {
+    width: 34px;
+    height: 34px;
+  }
+
   .card-shape.triangle {
     border-left-width: 17px;
     border-right-width: 17px;
     border-bottom-width: 30px;
   }
-  .card-shape.hexagon { width: 34px; height: 18px; }
+
+  .card-shape.hexagon {
+    width: 34px;
+    height: 18px;
+  }
+
   .card-shape.hexagon::before,
   .card-shape.hexagon::after {
     border-left-width: 17px;
     border-right-width: 17px;
   }
-  .card-shape.hexagon::before { top: -9px; border-bottom-width: 9px; }
-  .card-shape.hexagon::after  { bottom: -9px; border-top-width: 9px; }
 
-  .card-number { font-size: 1.4rem; }
+  .card-shape.hexagon::before {
+    top: -9px;
+    border-bottom-width: 9px;
+  }
+
+  .card-shape.hexagon::after {
+    bottom: -9px;
+    border-top-width: 9px;
+  }
+
+  .card-number {
+    font-size: 1.4rem;
+  }
 
   /* Bottom Tab Bar */
   .mobile-tab-bar {
@@ -715,8 +837,13 @@
   }
 
   @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
   }
 
   .mobile-drawer-header {
@@ -727,7 +854,7 @@
   }
 
   .drawer-close-btn {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
     color: var(--text-main);
     width: 30px;
@@ -742,7 +869,7 @@
   .mobile-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 125;
   }
 
@@ -782,4 +909,3 @@
     padding: 16px;
   }
 }
-
