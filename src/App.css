@@ -407,6 +407,12 @@
   flex-shrink: 0;
 }
 
+.bot-cap-info {
+  width: 260px;
+  right: -50px;
+  z-index: 1000;
+}
+
 /* Game Over Overlay */
 .game-over-overlay {
   position: absolute;
