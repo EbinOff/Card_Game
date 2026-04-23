@@ -5,13 +5,12 @@ export default function HUD({
   playerScore,
   botScore,
   botMatchCap,
-  botCapEnabled,
-  onToggleBotCap,
+  difficulty,
   selectedCount,
   onClaim,
   canClaim
 }) {
-  const [showBotInfo, setShowBotInfo] = useState(false);
+  const [showModeInfo, setShowModeInfo] = useState(false);
   return (
     <div className="hud">
       <div className="hud-section">
@@ -33,15 +32,13 @@ export default function HUD({
 
       <div
         className="hud-section"
-        onClick={onToggleBotCap}
-        style={{ cursor: 'pointer', transition: 'opacity 0.2s', position: 'relative' }}
-        title="Tap to toggle bot cap ON/OFF"
+        style={{ cursor: 'default', transition: 'opacity 0.2s', position: 'relative' }}
       >
         <span className="hud-label" style={{ position: 'relative' }}>
           <span
             onClick={(e) => {
               e.stopPropagation();
-              setShowBotInfo(true);
+              setShowModeInfo(true);
             }}
             style={{
               position: 'absolute',
@@ -66,34 +63,38 @@ export default function HUD({
           >
             i
           </span>
-          Bot Cap
+          Mode
         </span>
         <span
           className="hud-value"
-          style={!botCapEnabled ? { opacity: 0.4, fontSize: '1.1rem', marginTop: '2px' } : {}}
+          style={{ 
+            color: difficulty === 'easy' ? '#10b981' : '#f59e0b',
+            textTransform: 'uppercase',
+            fontSize: '1rem'
+          }}
         >
-          {botCapEnabled ? botMatchCap : 'OFF'}
+          {difficulty}
         </span>
 
-        {/* Custom Bot Info Box */}
-        {showBotInfo && (
+        {/* Custom Mode Info Box */}
+        {showModeInfo && (
           <>
-            <div className="info-backdrop" onClick={(e) => { e.stopPropagation(); setShowBotInfo(false); }} />
+            <div className="info-backdrop" onClick={(e) => { e.stopPropagation(); setShowModeInfo(false); }} />
             <div className="info-panel bot-cap-info" onClick={(e) => e.stopPropagation()}>
-              <h3 className="info-panel-title">Bot Match Cap</h3>
+              <h3 className="info-panel-title">Game Modes</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.4', textAlign: 'left' }}>
-                Limits the maximum number of cards the bot can match in a single turn. 
-                <br /><br />
-                This is dynamically set by <strong>your previous move</strong>. If you match 2 cards, the bot can match at most 2 on its next turn.
-                <br /><br />
-                <span style={{ color: '#10b981' }}>● ON:</span> Competitive Balance (Easy)
+                <strong style={{ color: '#10b981' }}>Easy Mode:</strong>
                 <br />
-                <span style={{ color: '#ef4444' }}>● OFF:</span> Unrestricted Bot (Hard)
+                The bot is capped by your previous move. If you match 2 cards, the bot can only match 2.
+                <br /><br />
+                <strong style={{ color: '#f59e0b' }}>Hard Mode:</strong>
+                <br />
+                No restrictions. The bot will always find the best possible move without any limits.
               </p>
               <button 
                 className="btn btn-primary" 
                 style={{ width: '100%', marginTop: '15px', padding: '8px' }} 
-                onClick={() => setShowBotInfo(false)}
+                onClick={() => setShowModeInfo(false)}
               >
                 Got it
               </button>

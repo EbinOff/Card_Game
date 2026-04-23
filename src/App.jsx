@@ -14,7 +14,8 @@ function App() {
   const [playerScore, setPlayerScore] = useState(0);
   const [botScore, setBotScore] = useState(0);
   const [botMatchCap, setBotMatchCap] = useState(2);
-  const [botCapEnabled, setBotCapEnabled] = useState(true);
+  const [difficulty, setDifficulty] = useState('easy'); // 'easy' or 'hard'
+  const [showModeSelector, setShowModeSelector] = useState(true);
   const [selectedCards, setSelectedCards] = useState([]);
   const [botHighlightIds, setBotHighlightIds] = useState([]);
   const [scatteringIds, setScatteringIds] = useState([]);
@@ -72,7 +73,7 @@ function App() {
     if (turn === 'bot' && !gameOver) {
       const runBot = async () => {
         await new Promise(r => setTimeout(r, 1500));
-        const activeCap = botCapEnabled ? botMatchCap : 4;
+        const activeCap = difficulty === 'easy' ? botMatchCap : 4;
         const bestMove = findBestBotMove(cards, activeCap);
 
         if (bestMove.length > 0) {
@@ -102,7 +103,7 @@ function App() {
       };
       runBot();
     }
-  }, [turn, cards, botMatchCap, botCapEnabled, gameOver, playerScore, botScore]);
+  }, [turn, cards, botMatchCap, difficulty, gameOver, playerScore, botScore]);
 
   const handleCardClick = (card) => {
     if (turn !== 'player' || gameOver) return;
@@ -154,6 +155,12 @@ function App() {
     setScatteringIds([]);
     setMatchHistory([]);
     setGameOver(null);
+    setShowModeSelector(true);
+  };
+
+  const startGame = (mode) => {
+    setDifficulty(mode);
+    setShowModeSelector(false);
   };
 
   return (
@@ -170,8 +177,7 @@ function App() {
           playerScore={playerScore}
           botScore={botScore}
           botMatchCap={botMatchCap}
-          botCapEnabled={botCapEnabled}
-          onToggleBotCap={() => setBotCapEnabled(prev => !prev)}
+          difficulty={difficulty}
           selectedCount={selectedCards.length}
           onClaim={handleClaim}
           canClaim={isValidMatch(selectedCards)}
@@ -233,6 +239,39 @@ function App() {
               </div>
             </div>
             <button className="btn btn-primary" onClick={resetGame}>Play Again</button>
+          </div>
+        </div>
+      )}
+
+      {showModeSelector && (
+        <div className="game-over-overlay" style={{ zIndex: 2000 }}>
+          <div className="game-over-modal mode-selector">
+            <h1 style={{ marginBottom: '10px' }}>Select Mode</h1>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>
+              Challenge the bot on your terms
+            </p>
+            
+            <div className="mode-options">
+              <div 
+                className="mode-card easy" 
+                onClick={() => startGame('easy')}
+              >
+                <h3>EASY</h3>
+                <p>Bot is capped by your moves</p>
+              </div>
+              
+              <div 
+                className="mode-card hard" 
+                onClick={() => startGame('hard')}
+              >
+                <h3>HARD</h3>
+                <p>Bot uses full power (No Cap)</p>
+              </div>
+            </div>
+            
+            <p style={{ marginTop: '25px', fontSize: '0.85rem', color: '#94a3b8' }}>
+              Mode cannot be changed once game starts
+            </p>
           </div>
         </div>
       )}
