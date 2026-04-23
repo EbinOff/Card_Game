@@ -149,7 +149,6 @@ function App() {
     setPlayerScore(0);
     setBotScore(0);
     setBotMatchCap(2);
-    setBotCapEnabled(true);
     setSelectedCards([]);
     setBotHighlightIds([]);
     setScatteringIds([]);
