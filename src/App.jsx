@@ -14,6 +14,7 @@ function App() {
   const [playerScore, setPlayerScore] = useState(0);
   const [botScore, setBotScore] = useState(0);
   const [botMatchCap, setBotMatchCap] = useState(2);
+  const [botCapEnabled, setBotCapEnabled] = useState(true);
   const [selectedCards, setSelectedCards] = useState([]);
   const [botHighlightIds, setBotHighlightIds] = useState([]);
   const [scatteringIds, setScatteringIds] = useState([]);
@@ -71,7 +72,8 @@ function App() {
     if (turn === 'bot' && !gameOver) {
       const runBot = async () => {
         await new Promise(r => setTimeout(r, 1500));
-        const bestMove = findBestBotMove(cards, botMatchCap);
+        const activeCap = botCapEnabled ? botMatchCap : 4;
+        const bestMove = findBestBotMove(cards, activeCap);
 
         if (bestMove.length > 0) {
           const moveIds = bestMove.map(c => c.id);
@@ -100,7 +102,7 @@ function App() {
       };
       runBot();
     }
-  }, [turn, cards, botMatchCap, gameOver, playerScore, botScore]);
+  }, [turn, cards, botMatchCap, botCapEnabled, gameOver, playerScore, botScore]);
 
   const handleCardClick = (card) => {
     if (turn !== 'player' || gameOver) return;
@@ -147,6 +149,7 @@ function App() {
     setPlayerScore(0);
     setBotScore(0);
     setBotMatchCap(2);
+    setBotCapEnabled(true);
     setSelectedCards([]);
     setBotHighlightIds([]);
     setScatteringIds([]);
@@ -168,6 +171,8 @@ function App() {
           playerScore={playerScore}
           botScore={botScore}
           botMatchCap={botMatchCap}
+          botCapEnabled={botCapEnabled}
+          onToggleBotCap={() => setBotCapEnabled(prev => !prev)}
           selectedCount={selectedCards.length}
           onClaim={handleClaim}
           canClaim={isValidMatch(selectedCards)}

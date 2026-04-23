@@ -5,6 +5,8 @@ export default function HUD({
   playerScore, 
   botScore,
   botMatchCap, 
+  botCapEnabled,
+  onToggleBotCap,
   selectedCount, 
   onClaim, 
   canClaim
@@ -28,9 +30,41 @@ export default function HUD({
         <span className="hud-value" style={{ color: '#a855f7' }}>{botScore}</span>
       </div>
 
-      <div className="hud-section">
-        <span className="hud-label">Bot Cap</span>
-        <span className="hud-value">{botMatchCap}</span>
+      <div 
+        className="hud-section" 
+        onClick={onToggleBotCap}
+        style={{ cursor: 'pointer', transition: 'opacity 0.2s' }}
+        title="Tap to toggle bot cap ON/OFF"
+      >
+        <span className="hud-label" style={{ display: 'flex', alignItems: 'center' }}>
+          <span 
+            title="Bot Match Cap: Limits maximum cards the bot can match at once." 
+            style={{
+              marginRight: '6px', 
+              cursor: 'help', 
+              border: '1px solid currentColor', 
+              borderRadius: '50%', 
+              display: 'inline-flex', 
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '14px', 
+              height: '14px', 
+              fontSize: '9px',
+              fontFamily: 'sans-serif',
+              fontWeight: 'bold',
+              opacity: 0.8
+            }}
+          >
+            i
+          </span>
+          Bot Cap
+        </span>
+        <span 
+          className="hud-value" 
+          style={!botCapEnabled ? { opacity: 0.4, fontSize: '1.1rem', marginTop: '2px' } : {}}
+        >
+          {botCapEnabled ? botMatchCap : 'OFF'}
+        </span>
       </div>
 
       <div className="hud-actions">
