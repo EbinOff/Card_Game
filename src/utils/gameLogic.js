@@ -1,4 +1,5 @@
-export const COLORS = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00']; // Magenta, Cyan, Lime, Yellow
+
+export const COLORS = ['#ff00ff', '#f91616de', '#22c55e', '#ffff00'];
 export const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
 export const NUMBERS = [1, 2, 3, 4];
 
@@ -92,6 +93,6 @@ export function calculateScore(count, sharedAttributes = 1) {
   let multiplier = 1;
   if (sharedAttributes === 2) multiplier = 3;
   if (sharedAttributes === 3) multiplier = 10;
-  
+
   return baseScore * multiplier;
 }

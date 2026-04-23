@@ -433,6 +433,7 @@
   margin-bottom: 20px;
   background: linear-gradient(135deg, #a78bfa, #f472b6);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -715,7 +716,7 @@
   /* On mobile, anchor panel to viewport so it never clips off-screen */
   .info-panel {
     position: fixed;
-    top: 20px;
+    top: 30px;
     /* Moved up slightly */
     bottom: auto;
     right: 12px;
