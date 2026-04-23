@@ -715,7 +715,7 @@
   /* On mobile, anchor panel to viewport so it never clips off-screen */
   .info-panel {
     position: fixed;
-    top: 80px;
+    top: 40px;
     /* Moved up slightly */
     bottom: auto;
     right: 12px;
