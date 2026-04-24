@@ -49,7 +49,12 @@ function GameList({ history }) {
       {history.length === 0 && <div style={{textAlign:'center',color:'var(--text-muted)',fontSize:'0.9rem'}}>No games finished</div>}
       {history.map((game, i) => (
         <div key={game.id} className={`history-entry ${game.winner}`}>
-          <div style={{fontWeight:'bold',marginBottom:'8px',color:'var(--text-main)'}}>Game {history.length - i}</div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'8px'}}>
+            <div style={{fontWeight:'bold',color:'var(--text-main)'}}>Game {history.length - i}</div>
+            <div style={{fontSize:'0.7rem',textTransform:'uppercase',letterSpacing:'1px',color:'var(--text-muted)',background:'rgba(255,255,255,0.05)',padding:'2px 6px',borderRadius:'4px'}}>
+              {game.mode || 'Easy'}
+            </div>
+          </div>
           <div style={{display:'flex',justifyContent:'space-between',fontSize:'0.9rem',marginBottom:'8px'}}>
             <span style={{color:'#10b981'}}>You: {game.playerScore}</span>
             <span style={{color:'#a855f7'}}>Bot: {game.botScore}</span>
@@ -62,4 +67,3 @@ function GameList({ history }) {
     </div>
   );
 }
-

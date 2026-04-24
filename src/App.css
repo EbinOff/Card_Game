@@ -268,6 +268,7 @@
   border-right: 20px solid transparent;
   border-bottom: 35px solid currentColor;
   background: none !important;
+  margin-top: 2px;
 }
 
 .card-shape.hexagon {
@@ -1094,6 +1095,21 @@
     right: 20px;
   }
 
+  .fab-container {
+    bottom: 80px; /* Above mobile tab bar */
+    right: 20px;
+  }
+
+  .mode-options {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mode-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
   .mobile-backdrop {
     position: fixed;
     inset: 0;
@@ -1135,5 +1151,49 @@
   .mobile-drawer {
     max-height: 60vh;
     padding: 16px;
+  }
+}
+
+/* Toast Notifications */
+.toast-notification {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 17, 30, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: toastPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  white-space: nowrap;
+}
+
+@keyframes toastPopIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .toast-notification {
+    bottom: 140px;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+    white-space: normal;
   }
 }

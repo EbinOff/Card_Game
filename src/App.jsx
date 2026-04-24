@@ -26,9 +26,20 @@ function App() {
   const [mobileDrawer, setMobileDrawer] = useState(null); // null | 'game' | 'match'
   const [viewingLastGame, setViewingLastGame] = useState(false);
   const [showGameActions, setShowGameActions] = useState(false);
+  const [initialCards, setInitialCards] = useState([]);
+  const [toast, setToast] = useState(null);
+  const toastTimeout = React.useRef(null);
+
+  const showToast = (msg) => {
+    if (toastTimeout.current) clearTimeout(toastTimeout.current);
+    setToast(msg);
+    toastTimeout.current = setTimeout(() => setToast(null), 2000);
+  };
 
   React.useEffect(() => {
-    setCards(generateBoard());
+    const newBoard = generateBoard();
+    setCards(newBoard);
+    setInitialCards(newBoard);
   }, []);
 
   React.useEffect(() => {
@@ -66,7 +77,8 @@ function App() {
           id: Date.now().toString(),
           winner,
           playerScore: finalPlayerScore,
-          botScore: finalBotScore
+          botScore: finalBotScore,
+          mode: difficulty
         }, ...prev]);
         return;
       }
@@ -114,6 +126,8 @@ function App() {
     } else {
       if (selectedCards.length < 4) {
         setSelectedCards(prev => [...prev, card]);
+      } else {
+        showToast("Maximum 4 cards can be selected at once");
       }
     }
   };
@@ -146,8 +160,16 @@ function App() {
     }, 460);
   };
 
-  const resetGame = (keepMode = false) => {
-    setCards(generateBoard());
+  const resetGame = (keepMode = false, keepBoard = false) => {
+    let freshBoard;
+    if (keepBoard && initialCards.length > 0) {
+      freshBoard = initialCards.map(c => ({ ...c, isRemoved: false }));
+    } else {
+      freshBoard = generateBoard();
+      setInitialCards(freshBoard);
+    }
+
+    setCards(freshBoard);
     setTurn('player');
     setPlayerScore(0);
     setBotScore(0);
@@ -215,8 +237,8 @@ function App() {
         </div>
 
         {viewingLastGame && (
-          <button 
-            className="btn btn-primary fixed-play-again" 
+          <button
+            className="btn btn-primary fixed-play-again"
             onClick={() => setShowModeSelector(true)}
           >
             Play Again
@@ -227,21 +249,27 @@ function App() {
           <div className="fab-container">
             {showGameActions && (
               <div className="fab-menu">
-                <button className="fab-action" onClick={() => { resetGame(true); setShowGameActions(false); }}>
+                <button className="fab-action" onClick={() => { resetGame(true, true); setShowGameActions(false); }}>
                   Restart
                 </button>
-                <button className="fab-action" onClick={() => { setShowModeSelector(true); setShowGameActions(false); }}>
+                <button className="fab-action" onClick={() => { resetGame(false, false); setShowGameActions(false); }}>
                   New Game
                 </button>
               </div>
             )}
-            <button 
+            <button
               className={`fab-plus ${showGameActions ? 'active' : ''}`}
               onClick={() => setShowGameActions(!showGameActions)}
               title="Game Actions"
             >
               +
             </button>
+          </div>
+        )}
+
+        {toast && (
+          <div className="toast-notification">
+            {toast}
           </div>
         )}
       </div>
@@ -260,8 +288,8 @@ function App() {
       {gameOver && !viewingLastGame && (
         <div className="game-over-overlay">
           <div className="game-over-modal">
-            <button 
-              className="modal-close-btn" 
+            <button
+              className="modal-close-btn"
               onClick={() => setViewingLastGame(true)}
               title="Close and view board"
             >
@@ -297,41 +325,41 @@ function App() {
             <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>
               Challenge the bot on your terms
             </p>
-            
+
             <div className="mode-options">
-              <div 
-                className="mode-card easy" 
+              <div
+                className="mode-card easy"
                 onClick={() => startGame('easy')}
               >
                 <h3>EASY</h3>
                 <p>Bot is capped by your moves</p>
               </div>
 
-              <div 
-                className="mode-card medium" 
+              <div
+                className="mode-card medium"
                 onClick={() => startGame('medium')}
               >
                 <h3>MEDIUM</h3>
                 <p>Bot uses full power (No Cap)</p>
               </div>
-              
-              <div 
-                className="mode-card hard" 
+
+              <div
+                className="mode-card hard"
                 onClick={() => startGame('hard')}
               >
                 <h3>HARD</h3>
                 <p>Full power + Intelligent blocking</p>
               </div>
             </div>
-            
-            <button 
-              className="modal-close-btn" 
+
+            <button
+              className="modal-close-btn"
               onClick={() => setShowModeSelector(false)}
               title="Close"
             >
               ×
             </button>
-            
+
             <p style={{ marginTop: '25px', fontSize: '0.85rem', color: '#94a3b8' }}>
               Mode cannot be changed once game starts
             </p>
