@@ -143,8 +143,7 @@
   user-select: none;
 
   /* Default state: non-exposed, non-near (very dark) */
-  filter: brightness(0.2) saturate(1);
-  -webkit-filter: brightness(0.2) saturate(1);
+  filter: brightness(0.2);
   opacity: 0.6;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: none;
@@ -153,16 +152,14 @@
 
 /* Near-exposed cards (dimmed but more visible) */
 .card.near-exposed {
-  filter: brightness(0.4) saturate(1);
-  -webkit-filter: brightness(0.4) saturate(1);
+  filter: brightness(0.4);
   opacity: 0.7;
   background: rgba(0, 0, 0, 0.4);
 }
 
 /* Exposed (playable) cards - bright and clear */
 .card.exposed {
-  filter: brightness(1) saturate(1);
-  -webkit-filter: brightness(1) saturate(1);
+  filter: brightness(1.001);
   opacity: 1;
   background: rgba(0, 0, 0, 0.6);
   box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.4);
