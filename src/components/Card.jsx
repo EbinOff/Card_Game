@@ -39,6 +39,9 @@ export default function Card({
     '--scatter-rot': `${rot}deg`,
   };
 
+  // Cache bust: 12345
+  console.debug('Card rendered', card.id);
+
   return (
     <div className={className} style={style} onClick={() => isExposed && !isScattering && onClick(card)}>
       <div className={`card-content ${card.pattern}`}>
