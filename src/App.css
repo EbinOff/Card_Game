@@ -1105,19 +1105,22 @@
     flex-direction: column;
     gap: 12px;
     width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .mode-card {
     width: 100%;
+    max-width: 400px;
     flex: none;
     min-height: auto;
-    padding: 20px 24px;
+    padding: 18px 24px;
     align-items: flex-start;
     text-align: left;
   }
 
   .mode-card h3 {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-size: 1.2rem;
   }
 
