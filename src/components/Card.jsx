@@ -22,13 +22,20 @@ export default function Card({
   const rotSeed = card.id.charCodeAt(card.id.length - 1);
   const rot = ((rotSeed % 40) - 20); // -20 to +20 degrees
 
+  const filter = isExposed 
+    ? 'brightness(1.1) saturate(1.3)' 
+    : (isNearExposed ? 'brightness(0.62) saturate(0.8)' : 'brightness(0.28) saturate(0.3)');
+
   const style = {
     left: `calc(${card.x} * var(--card-width))`,
     top: `calc(${card.y} * var(--card-height))`,
     transform: `translateZ(${card.z * 10}px)`,
     zIndex: card.z * 5,
     color: card.color,
-    '--card-depth-shadow': isNearExposed ? '0.95' : '0.72',
+    filter,
+    WebkitFilter: filter,
+    opacity: isExposed ? 1 : (isNearExposed ? 0.95 : 0.72),
+    background: isExposed ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.35)',
     '--scatter-rot': `${rot}deg`,
   };
 

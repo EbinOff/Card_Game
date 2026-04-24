@@ -145,24 +145,8 @@
 }
 
 .card:not(.exposed) {
-  -webkit-filter: brightness(0.28) saturate(0.3);
-  filter: brightness(0.28) saturate(0.3);
-  opacity: var(--card-depth-shadow, 0.72);
   cursor: not-allowed;
   box-shadow: none;
-}
-
-/* Cards just one layer below top are slightly more visible */
-.card.near-exposed:not(.exposed) {
-  filter: brightness(0.62) saturate(0.8);
-  opacity: 0.95;
-  box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.22);
-}
-
-.card.exposed {
-  -webkit-filter: brightness(1.1) saturate(1.3);
-  filter: brightness(1.1) saturate(1.3);
-  background: rgba(0, 0, 0, 0.55);
 }
 
 .card.exposed:hover:not(.selected) {
@@ -520,6 +504,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--glass-border);
   padding: 24px 12px;

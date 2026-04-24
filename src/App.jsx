@@ -320,7 +320,7 @@ function App() {
       {showTitlePage && (
         <div className="game-over-overlay" style={{ zIndex: 3000 }}>
           <div className="game-over-modal title-page-modal">
-            <h1 className="game-title" style={{ fontSize: '3.5rem', marginBottom: '10px', background: 'linear-gradient(135deg, #fff 0%, #94a3b8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>NEON MATCH</h1>
+            <h1 className="game-title" style={{ fontSize: '3.5rem', marginBottom: '10px', background: 'linear-gradient(135deg, #fff 0%, #94a3b8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>PolyMatch</h1>
             <p className="game-subtitle" style={{ color: 'var(--text-muted)', marginBottom: '40px', fontSize: '1.2rem', letterSpacing: '2px' }}>
               STRATEGIC CARD PAIRING
             </p>
