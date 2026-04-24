@@ -129,9 +129,6 @@
   position: absolute;
   width: var(--card-width);
   height: var(--card-height);
-  background: var(--glass-bg);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
   border: 1px solid var(--card-border);
   border-radius: 8px;
   cursor: pointer;
@@ -139,14 +136,36 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   user-select: none;
+
+  /* Default state: non-exposed, non-near */
+  filter: brightness(0.25) saturate(1);
+  -webkit-filter: brightness(0.25) saturate(1);
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
-.card:not(.exposed) {
-  cursor: not-allowed;
-  box-shadow: none;
+/* Near-exposed cards */
+.card.near-exposed {
+  filter: brightness(0.5) saturate(1);
+  -webkit-filter: brightness(0.5) saturate(1);
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Exposed (playable) cards */
+.card.exposed {
+  filter: brightness(1) saturate(1);
+  -webkit-filter: brightness(1) saturate(1);
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
 .card.exposed:hover:not(.selected) {
