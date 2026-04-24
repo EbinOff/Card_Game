@@ -15,7 +15,8 @@ function App() {
   const [botScore, setBotScore] = useState(0);
   const [botMatchCap, setBotMatchCap] = useState(2);
   const [difficulty, setDifficulty] = useState('easy'); // 'easy' or 'hard'
-  const [showModeSelector, setShowModeSelector] = useState(true);
+  const [showTitlePage, setShowTitlePage] = useState(true);
+  const [showModeSelector, setShowModeSelector] = useState(false);
   const [selectedCards, setSelectedCards] = useState([]);
   const [botHighlightIds, setBotHighlightIds] = useState([]);
   const [scatteringIds, setScatteringIds] = useState([]);
@@ -293,7 +294,7 @@ function App() {
               onClick={() => setViewingLastGame(true)}
               title="Close and view board"
             >
-              ×
+              &times;
             </button>
             <h1>
               {gameOver.winner === 'player' ? 'YOU WIN!' : gameOver.winner === 'bot' ? 'BOT WINS!' : 'TIE GAME!'}
@@ -316,53 +317,52 @@ function App() {
         </div>
       )}
 
-      {/* Removed the previous fixed-play-again location outside main-area */}
+      {showTitlePage && (
+        <div className="game-over-overlay" style={{ zIndex: 3000 }}>
+          <div className="game-over-modal title-page-modal">
+            <h1 className="game-title" style={{ fontSize: '3.5rem', marginBottom: '10px', background: 'linear-gradient(135deg, #fff 0%, #94a3b8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>NEON MATCH</h1>
+            <p className="game-subtitle" style={{ color: 'var(--text-muted)', marginBottom: '40px', fontSize: '1.2rem', letterSpacing: '2px' }}>
+              STRATEGIC CARD PAIRING
+            </p>
+            <button 
+              className="btn btn-primary start-btn" 
+              style={{ padding: '18px 60px', fontSize: '1.4rem', borderRadius: '40px', boxShadow: '0 0 30px var(--accent-glow)' }}
+              onClick={() => { setShowTitlePage(false); setShowModeSelector(true); }}
+            >
+              PLAY GAME
+            </button>
+          </div>
+        </div>
+      )}
 
       {showModeSelector && (
-        <div className="game-over-overlay" style={{ zIndex: 2000 }}>
+        <div className="game-over-overlay" style={{ zIndex: 4000 }}>
           <div className="game-over-modal mode-selector">
+            <button 
+              className="modal-close-btn" 
+              onClick={() => { setShowModeSelector(false); setShowTitlePage(true); }}
+            >
+              &times;
+            </button>
             <h1 style={{ marginBottom: '10px' }}>Select Mode</h1>
             <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>
               Challenge the bot on your terms
             </p>
 
             <div className="mode-options">
-              <div
-                className="mode-card easy"
-                onClick={() => startGame('easy')}
-              >
+              <div className="mode-card easy" onClick={() => startGame('easy')}>
                 <h3>EASY</h3>
                 <p>Bot is capped by your moves</p>
               </div>
-
-              <div
-                className="mode-card medium"
-                onClick={() => startGame('medium')}
-              >
+              <div className="mode-card medium" onClick={() => startGame('medium')}>
                 <h3>MEDIUM</h3>
                 <p>Bot uses full power (No Cap)</p>
               </div>
-
-              <div
-                className="mode-card hard"
-                onClick={() => startGame('hard')}
-              >
+              <div className="mode-card hard" onClick={() => startGame('hard')}>
                 <h3>HARD</h3>
                 <p>Full power + Intelligent blocking</p>
               </div>
             </div>
-
-            <button
-              className="modal-close-btn"
-              onClick={() => setShowModeSelector(false)}
-              title="Close"
-            >
-              ×
-            </button>
-
-            <p style={{ marginTop: '25px', fontSize: '0.85rem', color: '#94a3b8' }}>
-              Mode cannot be changed once game starts
-            </p>
           </div>
         </div>
       )}
