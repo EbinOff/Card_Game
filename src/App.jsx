@@ -24,6 +24,7 @@ function App() {
   const [gameOver, setGameOver] = useState(null);
   // Mobile drawer state
   const [mobileDrawer, setMobileDrawer] = useState(null); // null | 'game' | 'match'
+  const [viewingLastGame, setViewingLastGame] = useState(false);
 
   React.useEffect(() => {
     setCards(generateBoard());
@@ -156,6 +157,7 @@ function App() {
     setMatchHistory([]);
     setGameOver(null);
     setShowModeSelector(true);
+    setViewingLastGame(false);
   };
 
   const startGame = (mode) => {
@@ -219,9 +221,16 @@ function App() {
         <div className="mobile-backdrop mobile-only" onClick={() => setMobileDrawer(null)} />
       )}
 
-      {gameOver && (
+      {gameOver && !viewingLastGame && (
         <div className="game-over-overlay">
           <div className="game-over-modal">
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setViewingLastGame(true)}
+              title="Close and view board"
+            >
+              ×
+            </button>
             <h1>
               {gameOver.winner === 'player' ? 'YOU WIN!' : gameOver.winner === 'bot' ? 'BOT WINS!' : 'TIE GAME!'}
             </h1>
@@ -241,6 +250,15 @@ function App() {
             <button className="btn btn-primary" onClick={resetGame}>Play Again</button>
           </div>
         </div>
+      )}
+
+      {viewingLastGame && (
+        <button 
+          className="btn btn-primary fixed-play-again" 
+          onClick={resetGame}
+        >
+          Play Again
+        </button>
       )}
 
       {showModeSelector && (
