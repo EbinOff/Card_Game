@@ -145,6 +145,7 @@
 }
 
 .card:not(.exposed) {
+  -webkit-filter: brightness(0.28) saturate(calc(var(--card-depth-shadow, 0.72) - 0.42));
   filter: brightness(0.28) saturate(calc(var(--card-depth-shadow, 0.72) - 0.42));
   opacity: var(--card-depth-shadow, 0.72);
   cursor: not-allowed;
@@ -158,12 +159,17 @@
   box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.22);
 }
 
+.card.exposed {
+  -webkit-filter: brightness(1.1) saturate(1.3);
+  filter: brightness(1.1) saturate(1.3);
+  background: rgba(0, 0, 0, 0.55);
+}
+
 .card.exposed:hover:not(.selected) {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.1);
   z-index: 10;
   border-color: #f59e0b;
-  /* Amber = hovering but not yet selected */
 }
 
 .card.selected {
@@ -222,7 +228,7 @@
   font-weight: 800;
   text-align: center;
   line-height: 1;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), -1px -1px 3px rgba(0, 0, 0, 0.9);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Patterns */
@@ -967,7 +973,6 @@
   .card {
     border: 1px solid var(--card-border);
     /* Match desktop border */
-    background: var(--glass-bg);
   }
 
   /* Keeping exact same filters as desktop for consistency */
@@ -1096,7 +1101,7 @@
   }
 
   .fab-container {
-    bottom: 80px; /* Above mobile tab bar */
+    bottom: 120px; /* Moved up from 80px to avoid 'Moves' overlap */
     right: 20px;
   }
 
