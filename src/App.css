@@ -145,8 +145,8 @@
 }
 
 .card:not(.exposed) {
-  -webkit-filter: brightness(0.28) saturate(calc(var(--card-depth-shadow, 0.72) - 0.42));
-  filter: brightness(0.28) saturate(calc(var(--card-depth-shadow, 0.72) - 0.42));
+  -webkit-filter: brightness(0.28) saturate(0.3);
+  filter: brightness(0.28) saturate(0.3);
   opacity: var(--card-depth-shadow, 0.72);
   cursor: not-allowed;
   box-shadow: none;
