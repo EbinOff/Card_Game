@@ -83,21 +83,18 @@ export default function HUD({
             <div className="info-panel bot-cap-info" onClick={(e) => e.stopPropagation()}>
               <h3 className="info-panel-title">Game Modes</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.4', textAlign: 'left' }}>
-                <strong style={{ color: '#10b981' }}>Easy Mode:</strong>
+                <strong style={{ color: '#10b981' }}>Easy:</strong>
                 <br />
-                The bot is capped by your previous move. If you match 2 cards, the bot can only match 2.
+                Bot is capped by your moves. Match 2 cards, bot matches max 2.
                 <br /><br />
-                <strong style={{ color: '#f59e0b' }}>Hard Mode:</strong>
+                <strong style={{ color: '#3B82F6' }}>Medium:</strong>
                 <br />
-                No restrictions. The bot will always find the best possible move without any limits.
+                No restrictions. Bot always finds its highest scoring move.
+                <br /><br />
+                <strong style={{ color: '#f59e0b' }}>Hard:</strong>
+                <br />
+                Full power plus strategic blocking to prevent your high scores.
               </p>
-              <button 
-                className="btn btn-primary" 
-                style={{ width: '100%', marginTop: '15px', padding: '8px' }} 
-                onClick={() => setShowModeInfo(false)}
-              >
-                Got it
-              </button>
             </div>
           </>
         )}

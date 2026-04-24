@@ -25,6 +25,7 @@ function App() {
   // Mobile drawer state
   const [mobileDrawer, setMobileDrawer] = useState(null); // null | 'game' | 'match'
   const [viewingLastGame, setViewingLastGame] = useState(false);
+  const [showGameActions, setShowGameActions] = useState(false);
 
   React.useEffect(() => {
     setCards(generateBoard());
@@ -75,7 +76,7 @@ function App() {
       const runBot = async () => {
         await new Promise(r => setTimeout(r, 1500));
         const activeCap = difficulty === 'easy' ? botMatchCap : 4;
-        const bestMove = findBestBotMove(cards, activeCap);
+        const bestMove = findBestBotMove(cards, activeCap, difficulty);
 
         if (bestMove.length > 0) {
           const moveIds = bestMove.map(c => c.id);
@@ -145,7 +146,7 @@ function App() {
     }, 460);
   };
 
-  const resetGame = () => {
+  const resetGame = (keepMode = false) => {
     setCards(generateBoard());
     setTurn('player');
     setPlayerScore(0);
@@ -156,13 +157,17 @@ function App() {
     setScatteringIds([]);
     setMatchHistory([]);
     setGameOver(null);
-    setShowModeSelector(true);
     setViewingLastGame(false);
+    setShowGameActions(false);
+    if (!keepMode) {
+      setShowModeSelector(true);
+    }
   };
 
   const startGame = (mode) => {
     setDifficulty(mode);
     setShowModeSelector(false);
+    resetGame(true);
   };
 
   return (
@@ -208,6 +213,37 @@ function App() {
             Moves
           </button>
         </div>
+
+        {viewingLastGame && (
+          <button 
+            className="btn btn-primary fixed-play-again" 
+            onClick={() => setShowModeSelector(true)}
+          >
+            Play Again
+          </button>
+        )}
+
+        {!gameOver && !viewingLastGame && !showModeSelector && (
+          <div className="fab-container">
+            {showGameActions && (
+              <div className="fab-menu">
+                <button className="fab-action" onClick={() => { resetGame(true); setShowGameActions(false); }}>
+                  Restart
+                </button>
+                <button className="fab-action" onClick={() => { setShowModeSelector(true); setShowGameActions(false); }}>
+                  New Game
+                </button>
+              </div>
+            )}
+            <button 
+              className={`fab-plus ${showGameActions ? 'active' : ''}`}
+              onClick={() => setShowGameActions(!showGameActions)}
+              title="Game Actions"
+            >
+              +
+            </button>
+          </div>
+        )}
       </div>
 
       <HistorySidebar
@@ -247,19 +283,12 @@ function App() {
                 <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>{botScore}</p>
               </div>
             </div>
-            <button className="btn btn-primary" onClick={resetGame}>Play Again</button>
+            <button className="btn btn-primary" onClick={() => setShowModeSelector(true)}>Play Again</button>
           </div>
         </div>
       )}
 
-      {viewingLastGame && (
-        <button 
-          className="btn btn-primary fixed-play-again" 
-          onClick={resetGame}
-        >
-          Play Again
-        </button>
-      )}
+      {/* Removed the previous fixed-play-again location outside main-area */}
 
       {showModeSelector && (
         <div className="game-over-overlay" style={{ zIndex: 2000 }}>
@@ -277,15 +306,31 @@ function App() {
                 <h3>EASY</h3>
                 <p>Bot is capped by your moves</p>
               </div>
+
+              <div 
+                className="mode-card medium" 
+                onClick={() => startGame('medium')}
+              >
+                <h3>MEDIUM</h3>
+                <p>Bot uses full power (No Cap)</p>
+              </div>
               
               <div 
                 className="mode-card hard" 
                 onClick={() => startGame('hard')}
               >
                 <h3>HARD</h3>
-                <p>Bot uses full power (No Cap)</p>
+                <p>Full power + Intelligent blocking</p>
               </div>
             </div>
+            
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setShowModeSelector(false)}
+              title="Close"
+            >
+              ×
+            </button>
             
             <p style={{ marginTop: '25px', fontSize: '0.85rem', color: '#94a3b8' }}>
               Mode cannot be changed once game starts
