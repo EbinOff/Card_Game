@@ -41,67 +41,80 @@ export function findBestBotMove(allCards, botMatchCap, difficulty = 'easy') {
 
   // 2. Decide based on difficulty
   if (difficulty === 'hard') {
-    // Blocking Logic: Choose the move that results in the lowest possible score for the player's next move
-    let bestBotMove = candidates[0].combo;
-    let minOpponentBestScore = Infinity;
-    let maxBotScoreAtMinRisk = -1;
+    // Advanced 3-Ply Strategy: 
+    // Evaluate: BotMoveScore - MaxPlayerResponseScore + MaxBotFollowUpScore
+    
+    // Sort candidates by score descending and limit to top 20 for performance
+    const topCandidates = candidates
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 20);
 
-    // To prevent infinite recursion and keep it fast, we only look 1 move ahead
-    for (const botMove of candidates) {
-      const remainingCards = allCards.map(c => 
-        botMove.combo.find(mc => mc.id === c.id) ? { ...c, isRemoved: true } : c
-      );
+    let bestEval = -Infinity;
+    let bestMove = topCandidates[0].combo;
+
+    for (const botMove of topCandidates) {
+      // Simulation Level 1: After Bot Move
+      const s1Cards = simulateMove(allCards, botMove.combo);
       
-      const opponentBestScore = getBestPotentialScore(remainingCards);
+      // Simulation Level 2: Player's best response
+      const playerBest = getBestMoveDetails(s1Cards);
+      const playerBestScore = playerBest ? playerBest.score : 0;
       
-      if (opponentBestScore < minOpponentBestScore) {
-        minOpponentBestScore = opponentBestScore;
-        maxBotScoreAtMinRisk = botMove.score;
-        bestBotMove = botMove.combo;
-      } else if (opponentBestScore === minOpponentBestScore) {
-        if (botMove.score > maxBotScoreAtMinRisk) {
-          maxBotScoreAtMinRisk = botMove.score;
-          bestBotMove = botMove.combo;
-        }
+      let botFollowUpScore = 0;
+      if (playerBest) {
+        // Simulation Level 3: Bot's best follow-up after player response
+        const s2Cards = simulateMove(s1Cards, playerBest.combo);
+        const botFollowUp = getBestMoveDetails(s2Cards);
+        botFollowUpScore = botFollowUp ? botFollowUp.score : 0;
+      } else {
+        // If player has no moves, bot essentially wins or gets another turn
+        botFollowUpScore = 1000; // Heavy weight for checkmating player
+      }
+
+      // Eval = (Bot current) - (Player next) + (Bot follow-up)
+      // We weight blocking slightly more to be "aggressive"
+      const currentEval = botMove.score - (playerBestScore * 1.2) + (botFollowUpScore * 0.8);
+      
+      if (currentEval > bestEval) {
+        bestEval = currentEval;
+        bestMove = botMove.combo;
       }
     }
-    return bestBotMove;
+    return bestMove;
   } else {
     // Easy or Medium: Just find the highest scoring move
-    let bestMatch = [];
-    let bestScore = -1;
-    for (const candidate of candidates) {
-      if (candidate.score > bestScore) {
-        bestScore = candidate.score;
-        bestMatch = candidate.combo;
-      }
-    }
-    return bestMatch;
+    return candidates.sort((a, b) => b.score - a.score)[0].combo;
   }
 }
 
-// Helper to find the best move score for a given board state
-function getBestPotentialScore(cards) {
+// Helper to simulate board state after a move
+function simulateMove(cards, moveCombo) {
+  return cards.map(c => 
+    moveCombo.find(mc => mc.id === c.id) ? { ...c, isRemoved: true } : c
+  );
+}
+
+// Helper to find the best move (score + combo) for a given board state
+function getBestMoveDetails(cards) {
   const exposed = cards.filter(c => isExposed(c, cards));
-  if (exposed.length < 2) return 0;
+  if (exposed.length < 2) return null;
   
-  let maxScore = 0;
-  // Check 4, 3, 2 card matches
+  let best = null;
+  
   for (let k = 4; k >= 2; k--) {
-    // Optimization: if we already found a score and k * 10 is less than maxScore/40, we might skip
-    // but with 12 cards max, we can check all.
     const combs = getCombinations(exposed, k);
     for (const combo of combs) {
       if (isValidMatch(combo)) {
         const score = calculateScore(combo.length, getSharedAttributesCount(combo));
-        if (score > maxScore) {
-          maxScore = score;
-          if (maxScore >= 4000) return maxScore; // Early exit for jackpot
+        if (!best || score > best.score) {
+          best = { combo, score };
+          // Early exit for Jackpot
+          if (score >= 4000) return best;
         }
       }
     }
   }
-  return maxScore;
+  return best;
 }
 
 export function hasAnyMoves(allCards) {

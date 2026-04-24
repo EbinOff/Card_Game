@@ -93,7 +93,7 @@ export default function HUD({
                 <br /><br />
                 <strong style={{ color: '#f59e0b' }}>Hard:</strong>
                 <br />
-                Full power plus strategic blocking to prevent your high scores.
+                Advanced 3-ply strategy: predicts threats and sets up Jackpots.
               </p>
             </div>
           </>
