@@ -23,8 +23,8 @@ export default function Card({
   const rot = ((rotSeed % 40) - 20); // -20 to +20 degrees
 
   const filter = isExposed
-    ? 'brightness(1.5) saturate(2)'
-    : (isNearExposed ? 'brightness(0.5) saturate(1.75)' : 'brightness(0.25) saturate(1.5)');
+    ? 'brightness(1) saturate(1)'
+    : (isNearExposed ? 'brightness(0.5) saturate(1)' : 'brightness(0.25) saturate(1)');
 
   const style = {
     left: `calc(${card.x} * var(--card-width))`,
@@ -34,8 +34,8 @@ export default function Card({
     color: card.color,
     filter,
     WebkitFilter: filter,
-    opacity: isExposed ? 1 : (isNearExposed ? 0.95 : 0.72),
-    background: isExposed ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.35)',
+    opacity: isExposed ? 1 : (isNearExposed ? 0.7 : 0.7),
+    background: isExposed ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.3)',
     '--scatter-rot': `${rot}deg`,
   };
 
