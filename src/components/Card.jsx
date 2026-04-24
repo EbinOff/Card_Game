@@ -35,7 +35,7 @@ export default function Card({
     filter,
     WebkitFilter: filter,
     opacity: isExposed ? 1 : (isNearExposed ? 0.95 : 0.72),
-    background: isExposed ? 'rgba(233, 225, 225, 0.6)' : 'rgba(255, 255, 255, 0.35)',
+    background: isExposed ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.35)',
     '--scatter-rot': `${rot}deg`,
   };
 
