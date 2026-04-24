@@ -1104,11 +1104,25 @@
   .mode-options {
     flex-direction: column;
     gap: 12px;
+    width: 100%;
   }
 
   .mode-card {
+    width: 100%;
+    flex: none;
     min-height: auto;
-    padding: 16px;
+    padding: 20px 24px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .mode-card h3 {
+    margin-bottom: 4px;
+    font-size: 1.2rem;
+  }
+
+  .mode-card p {
+    font-size: 0.85rem;
   }
 
   .mobile-backdrop {
